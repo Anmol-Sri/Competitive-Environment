@@ -1,6 +1,6 @@
 /*
-	Author : $%U%$
-	Created On : $%D%$/$%M%$/$%Y%$ $%h%$:$%m%$:$%s%$
+	Author : legend_is_born
+	Created On : 27/12/2020 16:20:02
 */
 
 #include <bits/stdc++.h>
@@ -55,7 +55,14 @@ ll powermod(ll n,ll m,ll _MOD){
 }
 
 void solve(){
-	
+	ll d, k; cin >> d >> k;
+	ll x = 0, y = 0;
+	while(true){
+		if(x <= y && (x + k) * (x + k) + y * y <= d * d) x += k;
+		else if(y <= x && (y + k) * (y + k) + x * x <= d * d) y += k;
+		else break;
+	}
+	cout << (x == y ? "Utkarsh" : "Ashish") << '\n';
 }
 
 int main()

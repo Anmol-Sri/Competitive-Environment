@@ -1,6 +1,6 @@
 /*
-	Author : $%U%$
-	Created On : $%D%$/$%M%$/$%Y%$ $%h%$:$%m%$:$%s%$
+	Author : legend_is_born
+	Created On : 27/12/2020 15:04:33
 */
 
 #include <bits/stdc++.h>
@@ -55,7 +55,18 @@ ll powermod(ll n,ll m,ll _MOD){
 }
 
 void solve(){
-	
+	int n, k; cin >> n >> k;
+	string a, b; cin >> a >> b;
+	array < int, 27 > have{}, need{};
+	for(auto x : a) have[x-'a']++;
+	for(auto x : b) need[x-'a']++;
+	bool ok = false;
+	for(int i = 0; i < 26; i++){
+		if(have[i] < need[i]) ok = true;
+		if(have[i] % k != need[i] % k) ok = true;
+		if(have[i] > need[i]) have[i + 1] += have[i] - need[i];
+	}
+	cout << (ok ? "No" : "Yes") << '\n';
 }
 
 int main()

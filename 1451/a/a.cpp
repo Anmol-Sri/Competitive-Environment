@@ -1,6 +1,6 @@
 /*
-	Author : $%U%$
-	Created On : $%D%$/$%M%$/$%Y%$ $%h%$:$%m%$:$%s%$
+	Author : legend_is_born
+	Created On : 26/12/2020 16:38:59
 */
 
 #include <bits/stdc++.h>
@@ -55,7 +55,12 @@ ll powermod(ll n,ll m,ll _MOD){
 }
 
 void solve(){
-	
+	int n; cin >> n;
+	if(n == 1) cout << 0 << '\n';
+	else if(n == 2) cout << 1 << '\n';
+	else if(n == 3) cout << 2 << '\n';
+	else  if(n % 2 == 0) cout << 2 << '\n';
+	else cout << 3 << '\n';
 }
 
 int main()

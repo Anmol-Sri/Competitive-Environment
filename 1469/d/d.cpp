@@ -1,6 +1,6 @@
 /*
-	Author : $%U%$
-	Created On : $%D%$/$%M%$/$%Y%$ $%h%$:$%m%$:$%s%$
+	Author : legend_is_born
+	Created On : 29/12/2020 20:38:29
 */
 
 #include <bits/stdc++.h>
@@ -55,7 +55,20 @@ ll powermod(ll n,ll m,ll _MOD){
 }
 
 void solve(){
-	
+	int n; cin >> n;
+	vector < pair < int , int > > ans;
+	int prv = n, nxt = ceil(sqrt(n));
+	for(int i = n - 1; prv > 2; i--){
+		if(i == nxt){
+			ans.pb({prv, nxt});
+			ans.pb({prv, nxt});
+			prv = nxt;
+			nxt = ceil(sqrt(prv));
+		}
+		else ans.pb({i, prv});
+	}
+	cout << ans.size() << '\n';
+	for(auto x : ans) cout << x.first << ' ' << x.second << '\n';
 }
 
 int main()

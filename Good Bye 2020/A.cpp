@@ -1,8 +1,3 @@
-/*
-	Author : $%U%$
-	Created On : $%D%$/$%M%$/$%Y%$ $%h%$:$%m%$:$%s%$
-*/
-
 #include <bits/stdc++.h>
 #define ll long long int
 #define ld long double
@@ -55,14 +50,29 @@ ll powermod(ll n,ll m,ll _MOD){
 }
 
 void solve(){
-	
+	int n; cin >> n;
+	vector < int > arr(n); read(arr);
+	set < float > s;
+	for(int i = 0; i < n; i++){
+		for(int j = i + 1; j < n; j++){
+			s.insert((arr[j] - arr[i])/2.0);
+		}
+	}
+	cout << s.size() << '\n';
+	// db(s);
 }
+
 
 int main()
 {	
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(0);
+
+	#ifndef ONLINE_JUDGE
+		freopen("input.txt","r",stdin);
+		freopen("output.txt","w",stdout);	
+	#endif
 
 	int t = 1;
 	cin >> t;

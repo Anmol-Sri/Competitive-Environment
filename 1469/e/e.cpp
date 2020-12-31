@@ -1,6 +1,6 @@
 /*
-	Author : $%U%$
-	Created On : $%D%$/$%M%$/$%Y%$ $%h%$:$%m%$:$%s%$
+	Author : legend_is_born
+	Created On : 30/12/2020 16:15:07
 */
 
 #include <bits/stdc++.h>
@@ -55,6 +55,8 @@ ll powermod(ll n,ll m,ll _MOD){
 }
 
 void solve(){
+	int n, k; cin >> n >> k;
+	string s; cin >> s;
 	
 }
 

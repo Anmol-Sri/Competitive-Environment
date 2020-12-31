@@ -1,8 +1,3 @@
-/*
-	Author : $%U%$
-	Created On : $%D%$/$%M%$/$%Y%$ $%h%$:$%m%$:$%s%$
-*/
-
 #include <bits/stdc++.h>
 #define ll long long int
 #define ld long double
@@ -54,8 +49,44 @@ ll powermod(ll n,ll m,ll _MOD){
 	if(m%2==0) return (val*val) % _MOD; else return (((val*val) % _MOD) * n) % _MOD;
 }
 
+const int mxN = 1e5 + 100;
+// vector < int > g[mxN];
+
 void solve(){
-	
+	// int n; cin >> n;
+	// for(int i = 0; i <= n; i++) g[i].clear();
+	// vector < int > w(n); read(w);
+	// for(int i = 0; i < n - 1; i++){
+	// 	int x, y; cin >> x >> y;
+	// 	x--; y--;
+	// 	g[x].pb(y); g[y].pb(x);
+	// }
+	// sort(all(w));
+	// vector < ll > ans(n - 1, 0);
+	ll res = 0;
+	ll arr[200015], cnt[200015] = {0};
+	ll n; cin >> n;
+	multiset < ll > s;
+	ll i = 1;
+	while(i <= n){
+		cin >> arr[i];
+		res += arr[i];
+		i++;
+	}
+	i = 1;
+	while(i < n){
+		int x, y; cin >> x >> y;
+		cnt[x]++; cnt[y]++;
+		if(cnt[x] > 1) s.insert(arr[x]);
+		if(cnt[y] > 1) s.insert(arr[y]);
+		i++;
+	}
+	cout << res << ' ';
+	for(auto itr = s.rbegin(); itr != s.rend(); itr++){
+		res += *itr;
+		cout << res << ' ';
+	}
+	cout << '\n';
 }
 
 int main()
@@ -63,6 +94,11 @@ int main()
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(0);
+
+	#ifndef ONLINE_JUDGE
+		freopen("input.txt","r",stdin);
+		freopen("output.txt","w",stdout);	
+	#endif
 
 	int t = 1;
 	cin >> t;

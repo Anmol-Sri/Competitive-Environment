@@ -1,6 +1,6 @@
 /*
-	Author : $%U%$
-	Created On : $%D%$/$%M%$/$%Y%$ $%h%$:$%m%$:$%s%$
+	Author : legend_is_born
+	Created On : 26/12/2020 20:48:40
 */
 
 #include <bits/stdc++.h>
@@ -55,7 +55,16 @@ ll powermod(ll n,ll m,ll _MOD){
 }
 
 void solve(){
-	
+	int n, q; cin >> n >> q;
+	string s; cin >> s;
+	while(q--){
+		bool ok = true;
+		int l, r; cin >> l >> r;
+		l--; r--;
+		for(int i = 0; i < l && ok; i++) if(s[i] == s[l]) ok = false;
+		for(int i = r + 1; i < n && ok; i++) if(s[i] == s[r]) ok = false;
+		if(!ok) cout << "YES"; else cout << "NO"; cout << "\n";
+	}
 }
 
 int main()

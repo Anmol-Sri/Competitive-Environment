@@ -1,8 +1,3 @@
-/*
-	Author : $%U%$
-	Created On : $%D%$/$%M%$/$%Y%$ $%h%$:$%m%$:$%s%$
-*/
-
 #include <bits/stdc++.h>
 #define ll long long int
 #define ld long double
@@ -55,7 +50,22 @@ ll powermod(ll n,ll m,ll _MOD){
 }
 
 void solve(){
-	
+	string s; cin >> s;
+	ll n = sz(s);
+	ll res = 0;
+	bool used[n + 1] = {false};
+	for(ll i = 0; i < n; i++){
+		if(used[i]) continue;
+		if(i + 2 < n && s[i] == s[i + 2]){
+			res++;
+			used[i + 2] = 1;
+		}
+		if(i + 1 < n && s[i] == s[i + 1]){
+			res++;
+			used[i + 1] = 1;
+		}
+	}
+	cout << res << "\n";
 }
 
 int main()
@@ -63,6 +73,11 @@ int main()
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(0);
+
+	#ifndef ONLINE_JUDGE
+		freopen("input.txt","r",stdin);
+		freopen("output.txt","w",stdout);	
+	#endif
 
 	int t = 1;
 	cin >> t;

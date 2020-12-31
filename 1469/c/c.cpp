@@ -1,6 +1,6 @@
 /*
-	Author : $%U%$
-	Created On : $%D%$/$%M%$/$%Y%$ $%h%$:$%m%$:$%s%$
+	Author : legend_is_born
+	Created On : 29/12/2020 18:44:34
 */
 
 #include <bits/stdc++.h>
@@ -55,7 +55,21 @@ ll powermod(ll n,ll m,ll _MOD){
 }
 
 void solve(){
-	
+	int n, k; cin >> n >> k;
+	vector < int > a(n); read(a);
+	vector < int > b(n), c(n);
+	b[0] = c[0] = a[0];
+	bool ok = true;
+	for(int i = 1; i < n; i++){
+		b[i] = max(a[i], b[i - 1] - (k - 1));
+		c[i] = min(a[i] + (k - 1), c[i - 1] + (k - 1));
+		if(b[i] > c[i]){
+			ok = false;
+			break;
+		}
+	}
+	if(a[n - 1] <  b[n - 1] || a[n - 1] > c[n - 1]) ok = false;
+	cout << (ok ? "YES" : "NO") << '\n';
 }
 
 int main()

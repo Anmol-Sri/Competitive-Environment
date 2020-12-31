@@ -1,6 +1,6 @@
 /*
-	Author : $%U%$
-	Created On : $%D%$/$%M%$/$%Y%$ $%h%$:$%m%$:$%s%$
+	Author : legend_is_born
+	Created On : 29/12/2020 18:38:54
 */
 
 #include <bits/stdc++.h>
@@ -55,7 +55,23 @@ ll powermod(ll n,ll m,ll _MOD){
 }
 
 void solve(){
-	
+	int n; cin >> n;
+	vector < int > arr(n); read(arr);
+	vector < int > sums(n, 0);
+	int ans1 = 0, ans2 = 0;
+	int temp = 0;
+	for(int i = 0; i < n; i++){
+		temp += arr[i];
+		ans1 = max(ans1, temp);
+	}
+	int m; cin >> m;
+	arr.resize(m, 0); read(arr);
+	temp = 0;
+	for(int i = 0; i < m; i++){
+		temp += arr[i];
+		ans2 = max(temp, ans2);
+	}
+	cout << ans1 + ans2 << '\n';
 }
 
 int main()

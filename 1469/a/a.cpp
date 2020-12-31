@@ -1,6 +1,6 @@
 /*
-	Author : $%U%$
-	Created On : $%D%$/$%M%$/$%Y%$ $%h%$:$%m%$:$%s%$
+	Author : legend_is_born
+	Created On : 29/12/2020 18:34:05
 */
 
 #include <bits/stdc++.h>
@@ -55,7 +55,9 @@ ll powermod(ll n,ll m,ll _MOD){
 }
 
 void solve(){
-	
+	string s; cin >> s;
+	if(s[0] == ')' || s[sz(s) - 1] == '(' || sz(s) % 2 != 0) cout << "NO" << '\n';
+	else cout << "YES\n";
 }
 
 int main()

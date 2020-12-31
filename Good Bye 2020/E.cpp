@@ -1,8 +1,3 @@
-/*
-	Author : $%U%$
-	Created On : $%D%$/$%M%$/$%Y%$ $%h%$:$%m%$:$%s%$
-*/
-
 #include <bits/stdc++.h>
 #define ll long long int
 #define ld long double
@@ -54,8 +49,63 @@ ll powermod(ll n,ll m,ll _MOD){
 	if(m%2==0) return (val*val) % _MOD; else return (((val*val) % _MOD) * n) % _MOD;
 }
 
+const int mxN = 2e5 + 10;
+
+ll powmod[70];
+ll calc[63];
+
 void solve(){
-	
+	ll n; cin >> n;
+	vector < ll > totcount(n+1, 0);
+	vector < ll > store(n + 1, 0);
+	vector < ll > arr(n);
+	vector< ll > countval(70, 0);
+	ll i = 0;
+	ll res = 0;
+	while(i < n){
+		cin >> arr[i];
+		ll temp = arr[i];
+		ll t1 = 0;
+		while(temp > 0){
+			countval[t1] += temp % 2;
+			temp/=2;
+			t1++;
+		}
+		i++;
+	}
+	i = 0;
+	for(;i < n; i++){
+		ll temp = arr[i];
+		for(ll t1 = 0; t1 <= 61; t1++){
+			if(temp & (calc[t1])){
+				totcount[i] += (powmod[t1] * n) % MOD;
+				if(totcount[i] >= MOD) totcount[i] -= MOD;
+				continue;
+			}
+			totcount[i] += (powmod[t1] * countval[t1]) % MOD;
+			if(totcount[i] >= MOD) totcount[i] -= MOD;
+		}
+	}
+	i = 0;
+	while(i < n){
+		ll temp = arr[i];
+		ll t1 = 0;
+		while(t1 <= 61){
+			if(calc[t1] & temp){
+				store[i] += (powmod[t1] * countval[t1]) % MOD;
+				if(store[i] >= MOD) store[i] -= MOD;
+			}
+			t1++;
+		}
+		i++;
+	}
+	i = 0;
+	while(i < n){
+		res += (totcount[i] * store[i]) % MOD;
+		if(res >= MOD) res -= MOD;
+		i++;
+	}
+	cout << res << "\n";
 }
 
 int main()
@@ -64,13 +114,31 @@ int main()
 	cin.tie(NULL);
 	cout.tie(0);
 
+	#ifndef ONLINE_JUDGE
+		freopen("input.txt","r",stdin);
+		freopen("output.txt","w",stdout);	
+	#endif
+
 	int t = 1;
 	cin >> t;
 
-	for(int i = 1; i <= t; i++){
+	calc[0] = 1;
+	powmod[0] = 1;
+	int i = 1;
+	while(i < 63) {
+		calc[i] = 2LL * calc[i - 1];
+		i++;
+	}
+
+	i = 1;
+	while(i < 66){
+		powmod[i] = (2 * powmod[i - 1]) % MOD;
+		i++;
+	}
+
+	for(i = 1; i <= t; i++){
 		// cout << "Case #" << i << ": ";
 		solve();
 	}
-
 	return 0;
 }
