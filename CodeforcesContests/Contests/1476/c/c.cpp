@@ -1,3 +1,8 @@
+/*
+	Author : redarch
+	Created On : 29/01/2021 20:29:58
+*/
+
 #include <bits/stdc++.h>
 #define ll long long int
 #define ld long double
@@ -115,23 +120,49 @@ ll powermod(ll n, ll m, ll _MOD){
 	if(m % 2 == 0) return (val * val) % _MOD; else return (((val * val) % _MOD) * n) % _MOD;
 }
 
+const int N = 1e5 + 5;
+ll dp[N];
+
 void solve(){
-	ll n, k; cin >> n >> k;
-	vector < ll > arr(n); read(arr);
-	bool ok = true;
-	for(int i = 0; i < n; i++){
-		if(!(arr[i] * 2 % k == 0 || arr[i] % k == 0)){
-			ok = false;
-			for(ll j = 0; j < n; j++) if((arr[i] + arr[j]) % k == 0){ ok = true; break;}
-		}
-		if(!ok) break;
-	}
-	ll store = k;
-	while(store % 2 == 0) store = store >> 1;
-	if(store == 1){
-		ok = true;
-	}
-	if(ok) print("YES");else print("NO");
+    int n;
+    cin >> n;
+    ll c[n];
+    for(int i=0;i<n;i++)
+        cin >> c[i];
+    ll a[n],b[n];
+    for(int i=0;i<n;i++)
+    {
+        cin >> a[i];
+    }
+    for(int i=0;i<n;i++)
+        cin >> b[i];
+    memset(dp,0,sizeof dp);
+    dp[0] = abs(b[1] - a[1]);
+    ll ans = 0;
+    for(int i=1;i<n;i++)
+    {
+        if(a[i] > b[i])
+            swap(a[i],b[i]);
+        ll rem = b[i] - a[i];
+        if(i == 1)
+        {
+            dp[i] = dp[i-1] + 2;
+            ans = max(ans,dp[i] + c[i] - 1);
+            if(b[i] - a[i] == 0)
+                dp[i] = 2;
+            continue;
+        }
+        ll add = c[i-1] - 1 - rem;
+        dp[i] = max(dp[i-1] + 2 + add , rem + 2);
+        if(rem == 0)
+        {
+            dp[i] = 2;
+        }
+        ans = max(ans,dp[i] + c[i] - 1);
+        dp[i] = max(dp[i],rem + 2);
+        //cout << i << " " << rem << " " << dp[i] << " " << dp[i] + c[i] - 1 << "\n";
+    }
+    cout << ans << "\n";
 }
 
 int main()
@@ -139,11 +170,6 @@ int main()
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(0);
-
-	#ifndef ONLINE_JUDGE
-		freopen("input.txt","r",stdin);
-		freopen("output.txt","w",stdout);
-	#endif
 
 	// cout << setprecision(10) << fixed;
 	

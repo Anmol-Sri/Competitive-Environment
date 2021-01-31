@@ -1,3 +1,8 @@
+/*
+	Author : redarch
+	Created On : 29/01/2021 21:06:17
+*/
+
 #include <bits/stdc++.h>
 #define ll long long int
 #define ld long double
@@ -116,22 +121,24 @@ ll powermod(ll n, ll m, ll _MOD){
 }
 
 void solve(){
-	ll n, k; cin >> n >> k;
-	vector < ll > arr(n); read(arr);
-	bool ok = true;
-	for(int i = 0; i < n; i++){
-		if(!(arr[i] * 2 % k == 0 || arr[i] % k == 0)){
-			ok = false;
-			for(ll j = 0; j < n; j++) if((arr[i] + arr[j]) % k == 0){ ok = true; break;}
+	ll n; string s; cin >> n >> s;
+	ll cur  = 0;
+	vector < ll > forw(n, 0), suf(n, 0);
+	ll l = 0, r = 0;
+	bool okr = false, okl = false;
+	for(ll i = 0; i < n; i++){
+		if(s[i] == 'R'){
+			okr = true;
+			forw[i] = 1; 
 		}
-		if(!ok) break;
+		else if(s[i] == 'L'){
+			if(okr){
+				okr = false;
+				
+			}
+		}
 	}
-	ll store = k;
-	while(store % 2 == 0) store = store >> 1;
-	if(store == 1){
-		ok = true;
-	}
-	if(ok) print("YES");else print("NO");
+	
 }
 
 int main()
@@ -139,11 +146,6 @@ int main()
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(0);
-
-	#ifndef ONLINE_JUDGE
-		freopen("input.txt","r",stdin);
-		freopen("output.txt","w",stdout);
-	#endif
 
 	// cout << setprecision(10) << fixed;
 	
