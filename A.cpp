@@ -95,6 +95,13 @@ template<class H, class... T> void print(const H& h, const T&... t) {
 	print(t...);
 }
 
+template <typename T1, typename T2>
+constexpr typename std::common_type<T1, T2>::type floor_div(T1 x, T2 y) {
+	assert(y != 0);
+	if (y < 0) x = -x, y = -y;
+	return x < 0 ? (x - y + 1) / y : x / y;
+}
+
 const ll INFL = (ll)1e18;
 const int INF = (int)1e9;
 const ld eps = (ld)1e-9;
@@ -115,15 +122,37 @@ ll powermod(ll n, ll m, ll _MOD){
 	if(m % 2 == 0) return (val * val) % _MOD; else return (((val * val) % _MOD) * n) % _MOD;
 }
 
+const int mxN = 3000;
+vector < pair < ll, ll > > graph[mxN];
+ll dis[mxN];
 void solve(){
-	int n; cin >> n;
-	vector < int > arr(n); read(arr);
-	int ans1 = 0, ans2 = 0;
-	for(int i = 0; i < n; i++){
-		if(arr[i] % 2 == 0) ans1++;
-		else ans2++;
+	ll n, m; cin >> n >> m;
+	for(ll i = 0; i < m; i++){
+		ll a, b, c; cin >> a >> b >> c; a--; b--;
+		graph[a].pb(MP(b, c));
 	}
-	print(min(ans1, ans2));
+	priority_queue < pair < ll, ll >, vector < pair < ll, ll > >, greater < pair < ll, ll > > > q;
+	for(ll i = 0; i < n; i++){
+		for(ll j = 0; j < mxN; j++) dis[j] = INF;
+		dis[i] = 0;
+		ll ans = INF;
+		q.push(MP(0, i));
+		while(!q.empty()){
+			auto cur = q.top(); q.pop();
+			if(cur.first > dis[cur.second]) continue;
+			for(auto x : graph[cur.second]){
+				if(dis[x.first] > cur.first + x.second){
+					dis[x.first] = cur.first + x.second;
+					q.push(MP(dis[x.first], x.first));
+				}
+				if(x.first == i){
+					ans = min(ans, cur.first + x.second);
+				}
+			}
+		}
+		if(ans == INF) ans = -1;
+		print(ans);
+	}
 }
 
 int main()
@@ -140,7 +169,7 @@ int main()
 	// cout << setprecision(10) << fixed;
 	
 	int t = 1;
-	cin >> t;
+	// cin >> t;
 
 	for(int i = 1; i <= t; i++){
 		// cout << "Case #" << i << ": ";

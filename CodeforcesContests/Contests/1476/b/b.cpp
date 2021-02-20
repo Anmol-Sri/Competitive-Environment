@@ -120,23 +120,34 @@ ll powermod(ll n, ll m, ll _MOD){
 	if(m % 2 == 0) return (val * val) % _MOD; else return (((val * val) % _MOD) * n) % _MOD;
 }
 
+/*
+	pi/(p0 + p1 + ... pi-1) <= k/100
+	100 * pi <= k * (p0 + p1 ... pi-1)
+
+	Now : 
+		pi / sum <= k/100
+		Therefore : 
+			Condition to satisfy : 100 * pi <= k * (sum + change)
+			for this condition to satisfy we need to add such x to the denominator such that ratio decrease : 
+				100 * pi <= k * (sum + change + x)
+				100 * pi <= k * (sum + change) + kx
+				100 * pi - k * (sum + change) <= kx
+				ceil((100 * pi - k * (sum + change))/k) = x
+	
+*/
+
 void solve(){
 	ll n, k; cin >> n >> k;
-	vector < ll > arr(n);
-	ll sum = 0, ans = 0;
-	ld check = (k * 1.0)/(100 * 1.0);
-	for(ll i = 0; i < n; i++) cin >> arr[i], sum += arr[i];
-	auto calc = [&](ll i){
-		if (100 * arr[i] - k * sum % k != 0) return 1;
-		return 0;
-	};
-	for(ll i = n - 1; i > 0; i--){
-		sum = sum - arr[i];
-		ld ratio = ((ld)arr[i])/((ld)sum * 1.0);
-		if(ratio > check){
-			ll increase = (100 * arr[i] - k * sum)/k + ((100 * arr[i] - k * sum)%k != 0);
-			ans = max(ans, increase);
+	vector < ll > arr(n); read(arr);
+	ll ans = 0, sum = arr[0];
+	for(ll i = 1; i < n; i++){
+		ll cur = k * (sum + ans);
+		if(100 * arr[i] <= cur);
+		else{
+			ll x = (100 * arr[i] - (sum + ans) * k + k - 1)/k;
+			ans += x;
 		}
+		sum += arr[i];
 	}
 	print(ans);
 }

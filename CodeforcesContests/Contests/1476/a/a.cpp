@@ -120,10 +120,28 @@ ll powermod(ll n, ll m, ll _MOD){
 	if(m % 2 == 0) return (val * val) % _MOD; else return (((val * val) % _MOD) * n) % _MOD;
 }
 
+/*
+	sum = x.k
+	//smallest x such that sum is minimum possible : 
+		x = ceil(sum/k)
+		Since sum is to be as low as possible therefore the sum's minimum value is n ( for positive integers >= 1)
+			Therefore : 
+				x.k >= n
+				x = ceil(n/k)
+			Therefore : 
+				sum = x * k
+	Now we also know that maximum ai will be = ceil(sum/n)
+	Therefore combining all the above predictions we get : 
+		x = ceil(n/k)
+		sum = k * x
+		max ai = ceil(sum/n)
+*/
 void solve(){
-	double n, k; cin >> n >> k;
-	if(k < n) k = k * ceil(n/k);
-	cout << ceil(k/n) << '\n';
+	ll n, k; cin >> n >> k;
+	ll x = (n + k - 1)/k;
+	ll sum = k * x;
+	ll ans = (sum + n - 1)/n;
+	print(ans);
 }
 
 int main()
