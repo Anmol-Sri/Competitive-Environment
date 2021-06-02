@@ -130,110 +130,30 @@ ll powermod(ll n, ll m, ll _MOD){
 void solve(){
 	int h, m; cin >> h >> m;
 	string s; cin >> s;
-	int inv[] = {0, 1, 5, -1, -1, 2, -1, -1, 8, -1};
-	auto convert = [&](int n) -> string{
-		string q = "";
-		string check = to_string(n);
-		for(int i = 0; i < check.size(); i++){
-			int d = (check[i] - '0');
-			if(inv[d] == -1) return "";
-			q += to_string(inv[d]);
-		}
-		for(int i = q.size(); i < 2; i++) q += '0';
-		reverse(all(q));
-		return q;
+	int rev[] = {0, 1, 5, -1, -1, 2, -1, -1, 8, -1};
+	auto convert = [&](int n){
+		string x = to_string(n);
+		if(x.size() == 1) x = "0" + x;
+		string ans = "";
+		for(int i = 1; ~i; i--) if(rev[x[i] - '0'] == -1) return INF; else ans += to_string(rev[x[i] - '0']);
+		return stoi(ans);
 	};
-	int x = stoi(s.substr(0, 2));
-	string hour = "", min = "";
-	string HH = "", MM = "";
-	for(int i = x; i < h; i++){
-		string cur = convert(i);
-		if(cur == "") continue;
-		int c = stoi(cur);
-		if(c < h && c < m){
-			hour = cur;
+	auto pr = [&](int x){
+		string ans = to_string(x);
+		if(ans.size() < 2) ans = "0" + ans;
+		return ans;
+	};
+	int H = stoi(s.substr(0, 2)), M = stoi(s.substr(3, 2));
+	while(true){
+		if(M == m) H++, M = 0;
+		if(H == h) H = 0;
+		if(convert(H) < m && convert(M) < h){
+			cout << pr(H) << ":" << pr(M);
 			break;
 		}
+		M++;
 	}
-	if(hour == "" || stoi(hour) < x){
-		HH = "00";
-	}
-	else{
-		HH = hour;
-	}
-	int y = stoi(s.substr(3, 2));
-	for(int i = y; i < m; i++){
-		string cur = convert(i);
-		if(cur == "") continue;
-		int c = stoi(cur);
-		if(c < h && c < m){
-			min = cur;
-			break;
-		}
-	}
-	if(min == "" || stoi(min) < y || s.substr(0, 2) != HH){
-		MM = "00";
-	}
-	else{
-		MM = min;
-	}
-	// auto near = [&](char ch){
-	// 	int d = ch - '0';
-	// 	bool ok = false;
-	// 	for(int i = d; i < 10; i++){
-	// 		if(inv[i] != -1) return i;
-	// 	}
-	// 	for(int i = 0; i < d; i++){
-	// 		if(inv[i] != -1) return i;
-	// 	}
-	// 	return -1;
-	// };
-	// int hour = 0, min = 0;
-	// for(int i = 0; i < 2; i++){
-	// 	int d = near(s[i]);
-	// 	if(hour != 0) hour = hour * 10 + d;
-	// 	else hour = d;
-	// }
-	// if(hour < m && hour < h);
-	// else hour = 0;
-	// string HH = "", MM = "";
-	// if(hour < stoi(s.substr(0, 2)) || hour == 0){
-	// 	HH = "00";
-	// }
-	// else{
-	// 	while(hour){
-	// 		int d = hour % 10;
-	// 		HH += to_string(d);
-	// 		hour = hour / 10;
-	// 	}
-	// 	if(HH.size() < 2){
-	// 		for(int i = 0; i < 2 - HH.size(); i++) HH += '0';
-	// 		// print("error");
-	// 	}
-	// 	reverse(all(HH));
-	// }
-	// for(int i = 3; i < 5; i++){
-	// 	int d = near(s[i]);
-	// 	if(min != 0) min = min * 10 + d;
-	// 	else min = d;
-	// }
-	// if(min < h && min < m);
-	// else min = 0;
-	// if(to_string(HH) != s.substr(0, 2) || min == 0 || min < stoi(s.substr(3, 2))){
-	// 	MM = "00";
-	// }
-	// else{
-	// 	while(min){
-	// 		int d = min % 10;
-	// 		MM += to_string(d);
-	// 		min = min / 10;
-	// 	}
-	// 	if(MM.size() < 2){
-	// 		for(int i = 0; i < 2 - MM.size(); i++) MM += '0';
-	// 	}
-	// 	reverse(all(MM));
-	// }
-	cout << HH << ':' << MM << '\n';
+	print();
 }
 
 int main()

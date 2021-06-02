@@ -1,0 +1,22 @@
+{
+    // "editor.padding.bottom": 4,
+    // "editor.padding.top": 4,
+    // "editor.fontSize": 16,
+    // "editor.fontFamily": "'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    // "editor.fontLigatures": true,
+    "editor.fontFamily": "fira code medium",
+    "editor.fontSize": 16,
+    "editor.formatOnPaste": true,
+    "editor.multiCursorModifier": "ctrlCmd",
+    "editor.snippetSuggestions": "top",
+    "editor.tokenColorCustomizations": true,
+    "files.autoSave": "afterDelay",
+    "editor.codeLensFontFamily": "fira code medium",
+    "editor.padding.bottom": 4,
+    "editor.padding.top": 4,
+    "editor.fontLigatures": true,
+    "editor.minimap.enabled": false,
+    "cph.general.useShortCodeForcesName": true,
+    // "editor.quickSuggestions": null,
+    // "editor.fontWeight": null
+}

@@ -1,6 +1,6 @@
 /*
-	Author : _reyna_
-	Created On : 23/02/2021 15:20:59
+	Author : redarch
+	Created On : 22/03/2021 19:59:58
 */
 
 #include <bits/stdc++.h>
@@ -127,18 +127,37 @@ ll powermod(ll n, ll m, ll _MOD){
 	if(m % 2 == 0) return (val * val) % _MOD; else return (((val * val) % _MOD) * n) % _MOD;
 }
 
+// const ll mxN = 2e7 + 10;
+// vector < ll > mindiv(mxN, -1), numdiv(mxN);
+// void sieve(){
+// 	// mindiv -> stores the minimum prime divisor of a number
+// 	// numdiv -> stores the number of unique prime divisor of a number
+// 	mindiv[1] = 1;
+// 	for(ll i = 2; i < mxN; i++) if(mindiv[i] == -1) for(ll j = i; j < mxN; j += i) if(mindiv[j] == -1) mindiv[j] = i;
+// 	for(ll i = 2; i < mxN; i++){
+// 		ll j = i / mindiv[i];
+// 		numdiv[i] = numdiv[j] + (mindiv[i] != mindiv[j]); // 
+// 	}
+// }
+
 void solve(){
-	int n, m; cin >> n >> m;
+	ll n, m; cin >> n >> m;
 	string s, t; cin >> s >> t;
-	unordered_map < char, set < int > > mp;
-	for(int i = 0; i < n; i++){
-		mp[s[i]].insert(i + 1);
+	vector < ll > fir, sec;
+	ll ans = 0, pos = 0;
+	for(ll i = 0; i < m; i++){
+		while(t[i] != s[pos]) pos++;
+		fir.pb(pos);
+		pos++;
 	}
-	int ans = INT_MIN;
-	for(int i = 1; i < m; i++){
-		int temp = *prev(mp[t[i]].end()) - *(mp[t[i - 1]].begin());
-		ans = max(ans, temp);
+	pos = n - 1;
+	for(ll i = m - 1; ~i; i--){
+		while(t[i] != s[pos]) pos--;
+		sec.pb(pos);
+		pos--;
 	}
+	reverse(all(sec));
+	for(ll i = 0; i < m - 1; i++) ans = max(ans, sec[i + 1] - fir[i]);
 	print(ans);
 }
 
