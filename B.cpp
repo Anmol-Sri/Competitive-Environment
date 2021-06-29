@@ -115,8 +115,35 @@ ll powermod(ll n, ll m, ll _MOD){
 	if(m % 2 == 0) return (val * val) % _MOD; else return (((val * val) % _MOD) * n) % _MOD;
 }
 
+const int mxN = 1e3 + 10;
+ll n, m, c, t;
+vector < ll > g[mxN];
+set < ll > ans;
+// vector < ll > used(mxN, false);
+// 1 - 2 - 4 - 5
+// 1 - 3 - 5
+void dfs(ll v, ll cur, ll p){
+	// used[v] = true;
+	print("at : ", v);
+	for(auto x : g[v]){
+		ll xcur = cur + c;
+		if(x == n) {ans.insert(xcur); return; }
+		if(x == p) continue;
+		if((xcur/t) % 2 == 1) xcur = (xcur/t + 1) * t;
+		dfs(x, xcur, v);
+	}
+}
+
 void solve(){
-	
+	cin >> n >> m >> t >> c;
+	for(ll i = 0; i < m; i++){
+		ll x, y; cin >> x >> y;
+		g[x].pb(y); g[y].pb(x);
+	}
+	dfs(1, 0, -1);
+	for(auto x : ans) print(x);
+	// if(ans.size() == 1) print(-1);
+	// else print(ans[1]);
 }
 
 int main()
@@ -133,7 +160,7 @@ int main()
 	// cout << setprecision(10) << fixed;
 	
 	int t = 1;
-	cin >> t;
+	// cin >> t;
 
 	for(int i = 1; i <= t; i++){
 		// cout << "Case #" << i << ": ";
