@@ -116,22 +116,7 @@ ll powermod(ll n, ll m, ll _MOD){
 }
 
 void solve(){
-	ll n, k; cin >> n >> k;
-	vector < ll > arr(n); read(arr);
-	bool ok = true;
-	for(int i = 0; i < n; i++){
-		if(!(arr[i] * 2 % k == 0 || arr[i] % k == 0)){
-			ok = false;
-			for(ll j = 0; j < n; j++) if((arr[i] + arr[j]) % k == 0){ ok = true; break;}
-		}
-		if(!ok) break;
-	}
-	ll store = k;
-	while(store % 2 == 0) store = store >> 1;
-	if(store == 1){
-		ok = true;
-	}
-	if(ok) print("YES");else print("NO");
+	
 }
 
 int main()

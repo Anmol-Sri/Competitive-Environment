@@ -116,45 +116,7 @@ ll powermod(ll n, ll m, ll _MOD){
 }
 
 void solve(){
-	ll n; cin >> n;
-	vector < ll > arr(n); read(arr);
-	sort(all(arr));
-	if(n == 2){
-		print(0); return;
-	}
-	ll ans = 0;
-	if(n % 2 == 0){
-		for(ll i = 0; i < n/2; i++) if(abs(arr[i] - arr[n/4]) > 0) ans++;
-		for(ll i = n/2; i < n; i++) if(abs(arr[i] - arr[(3 * n)/4]) > 0) ans++;
-	}
-	else{
-		// 0 1 2 3 4 5 6
-		for(ll i = 0; i < n/2; i++) if(abs(arr[i] - arr[n/4]) > 0) ans++;
-		for(ll i = (n + 1)/2; i < n; i++) if(abs(arr[i] - arr[(3 * n)/4]) > 0) ans++;
-		if(abs(arr[n/2] - arr[n/4]) == 0|| abs(arr[(3 * n)/4] - arr[n/2]) == 0);
-		else ans++;
-	}
-	// print(ans);
-	map < ll, ll > mp;
-	for(ll i = 0; i < n; i++) mp[arr[i]]++;
-	ll cnt = 0;
-	for(auto x : mp) if(x.second > cnt){cnt = x.second;}
-	ans = min(ans, n - cnt);
-	if(cnt == n - 2){
-		ans = min(ans, 1LL);
-	}
-	print(ans);
-}
-void solve2(){
-	ll n; cin >> n;
-	ll val = 1 << n;
-	string s = to_string(val);
-	while(s.size() != 1){
-		ll sum = 0;
-		for(auto x : s) sum += x - '0';
-		s = to_string(sum);
-	}
-	print(s);
+	
 }
 
 int main()
@@ -171,11 +133,11 @@ int main()
 	// cout << setprecision(10) << fixed;
 	
 	int t = 1;
-	// cin >> t;
+	cin >> t;
 
 	for(int i = 1; i <= t; i++){
 		// cout << "Case #" << i << ": ";
-		solve2();
+		solve();
 	}
 
 	return 0;
