@@ -115,8 +115,27 @@ ll powermod(ll n, ll m, ll _MOD){
 	if(m % 2 == 0) return (val * val) % _MOD; else return (((val * val) % _MOD) * n) % _MOD;
 }
 
+unordered_map < string, vector < string > > g;
+unordered_map < string, int > subtreesize;
+void dfs(string v, string p){
+	subtreesize[v] = 1;
+	for(auto x : g[v]){
+		if(x == p) continue;
+		dfs(x, v);
+		subtreesize[v] += subtreesize[x];
+	}
+}
 void solve(){
-	
+	ll n; cin >> n;
+	for(ll i = 0; i < n; i++){
+		string s; cin >> s;
+	}
+	for(ll i = 0; i < n - 1; i++){
+		string x, y; cin >> x >> y;
+		g[x].pb(y); g[y].pb(x);
+	}
+	dfs("aa", "");
+	for(auto x : subtreesize) print(x.first, x.second);
 }
 
 int main()

@@ -1,3 +1,7 @@
+// #pragma GCC optimize("O3")
+// #pragma GCC optimize("Ofast")
+// #pragma GCC optimize("unroll-loops")
+// #pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,avx2,tune=native")
 #include <bits/stdc++.h>
 #define ll long long int
 #define ld long double
@@ -120,6 +124,7 @@ const ld eps = (ld)1e-9;
 const ld pi = acos(-1.0);
 const int dx[4] = {-1, 0, 1, 0};
 const int dy[4] = {0, 1, 0, -1};
+const vector<pair<int, int>> DXY = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
 
 ll power(ll n, ll m){
 	if(m == 0) return 1;
@@ -175,7 +180,56 @@ struct UnionFind {
 	ll sizeOfSet(ll i) { return setSize[findSet(i)]; }
 };
 
+const int mxN = 2e5 + 10;
+ll d = 505;
+ll n, t, ans = 0; 
+ll f[10*mxN], arr[mxN];
+pair < ll, pair < ll, ll > > q[mxN];
+bool comp(pair < ll, pair < ll, ll > > a, pair < ll, pair < ll, ll > > b){
+	if(a.first / d != b.first / d) return a.first/d < b.first/d;
+	return a.second.first < b.second.first;
+}
+void add(ll i){
+	ll cnt = f[arr[i]];
+	f[arr[i]]++;
+	ll cnt2 = cnt + 1;
+	ans = (ans + (cnt2*cnt2 - cnt*cnt)*arr[i]);
+}
+void remove(ll i){
+	ll cnt = f[arr[i]];
+	f[arr[i]]--;
+	ll cnt2 = cnt - 1;
+	ans = (ans + (cnt2*cnt2 - cnt*cnt)*arr[i]);
+}
 void solve(){
+	cin >> n >> t;
+	for(ll i = 0; i < n; i++) cin >> arr[i];
+	memset(f, 0, sizeof f);
+	for(ll i = 0; i < t; i++){
+		cin >> q[i].first >> q[i].second.first;
+		q[i].first--; q[i].second.first--; q[i].second.second = i;
+	}
+	sort(q, q + t, comp);
+	ll start = 0, end = -1;
+	ll res[mxN];
+	for(ll i = 0; i < t; i++){
+		ll l = q[i].first;
+		ll r = q[i].second.first;
+		while(start > l){
+			start--; add(start);
+		}
+		while(end < r){
+			end++; add(end);
+		}
+		while(start < l){
+			remove(start); start++;
+		}
+		while(end > r){
+			remove(end); end--;
+		}
+		res[q[i].second.second] = ans;
+	}
+	for(ll i = 0; i < t; i++) print(res[i]);
 	
 }
 
@@ -188,7 +242,7 @@ int main()
 	// cout << setprecision(10) << fixed;
 	
 	int t = 1;
-	cin >> t;
+	// cin >> t;
 
 	for(int i = 1; i <= t; i++){
 		// cout << "Case #" << i << ": ";
