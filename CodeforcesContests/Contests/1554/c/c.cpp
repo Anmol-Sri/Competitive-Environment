@@ -1,6 +1,6 @@
 /*
 	Author : redarch
-	Created On : 26/07/2021 16:26:33
+	Created On : 30/07/2021 16:25:45
 */
 
 // #pragma GCC optimize("O3")
@@ -186,16 +186,19 @@ struct UnionFind {
 };
 
 void solve(){
-	string s, t; cin >> s >> t;
-	ll n = sz(s), m = sz(t);
-	ll i = n - 1;
-	bool ok = true;
-	for(ll j = m - 1; j >= 0; j--){
-		while(i >= 0 && s[i] != t[j]) i -= 2;
-		if(i < 0){ok = false; break;}
-		i -= 1;
+	ll n, m; cin >> n >> m;
+	ll ans = 0;
+	while(n <= m){
+		for(ll i = 0; i < 31; i++){
+			ll cur = n | ((1 << i) - 1);
+			if(cur > m){
+				ans = ans | ((1 << i)/2);
+				n = n | ((1 << i)/2);
+				break;
+			}
+		}
 	}
-	if(ok) print("YES"); else print("NO");
+	print(ans);
 }
 
 int main()

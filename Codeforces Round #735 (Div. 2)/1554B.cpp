@@ -1,8 +1,3 @@
-/*
-	Author : redarch
-	Created On : 26/07/2021 16:26:33
-*/
-
 // #pragma GCC optimize("O3")
 // #pragma GCC optimize("Ofast")
 // #pragma GCC optimize("unroll-loops")
@@ -186,16 +181,22 @@ struct UnionFind {
 };
 
 void solve(){
-	string s, t; cin >> s >> t;
-	ll n = sz(s), m = sz(t);
-	ll i = n - 1;
-	bool ok = true;
-	for(ll j = m - 1; j >= 0; j--){
-		while(i >= 0 && s[i] != t[j]) i -= 2;
-		if(i < 0){ok = false; break;}
-		i -= 1;
-	}
-	if(ok) print("YES"); else print("NO");
+	ll n, k; cin >> n >> k;
+    vector < pair < ll, ll > > a(n);
+    for(ll i = 0; i < n; i++){
+        cin >> a[i].first; a[i].second = i + 1;
+    }
+    ll ans = LLONG_MIN;
+    for(ll i = 1; i < n; i++){
+        ll temp = (a[i].second * a[i - 1].second) - k * (a[i - 1].first | a[i].first);
+        ans = max(ans, temp);
+    }
+    sort(all(a));
+    for(ll i = 1; i < n; i++){
+        ll temp = (a[i].second * a[i - 1].second) - k * (a[i - 1].first | a[i].first);
+        ans = max(ans, temp);
+    }
+    print(ans);
 }
 
 int main()

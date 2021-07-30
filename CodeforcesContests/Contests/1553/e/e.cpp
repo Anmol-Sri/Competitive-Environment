@@ -1,6 +1,6 @@
 /*
 	Author : redarch
-	Created On : 26/07/2021 16:26:33
+	Created On : 26/07/2021 19:19:22
 */
 
 // #pragma GCC optimize("O3")
@@ -186,16 +186,38 @@ struct UnionFind {
 };
 
 void solve(){
-	string s, t; cin >> s >> t;
-	ll n = sz(s), m = sz(t);
-	ll i = n - 1;
-	bool ok = true;
-	for(ll j = m - 1; j >= 0; j--){
-		while(i >= 0 && s[i] != t[j]) i -= 2;
-		if(i < 0){ok = false; break;}
-		i -= 1;
+	ll n, m; cin >> n >> m;
+	vector < ll > a(n); read(a);
+	vector < ll > cnt(n);
+	for(ll i = 0; i < n; i++){
+		a[i]--;
+		ll dif = (i - a[i] + n) % n;
+		cnt[dif]++;
 	}
-	if(ok) print("YES"); else print("NO");
+	auto calc = [](vector < ll > q, ll n){
+		vector < bool > used(n, false);
+		ll ans = 0;
+		for(ll i = 0; i < n; i++){
+			if(used[i]) continue;
+			ll j = i;
+			while(!used[j]) {used[j] = true; j = q[j]; }
+			ans++;
+		}
+		return ans;
+	};
+	auto check = [&](ll k){
+		vector < ll > q;
+		for(ll i = k; i < n; i++) q.pb(a[i]);
+		for(ll i = 0; i < k; i++) q.pb(a[i]);
+		return n - calc(q, n) <= m;
+	};
+	vector < ll > ans;
+	for(ll i = 0; i < n; i++){
+		if(cnt[i] + 2 * m >= n && check(i)) ans.pb(i);
+	}
+	cout << ans.size() << ' ';
+	for(auto x : ans) cout << x << ' ';
+	cout << endl;
 }
 
 int main()

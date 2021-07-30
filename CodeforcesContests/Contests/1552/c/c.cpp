@@ -1,6 +1,6 @@
 /*
 	Author : redarch
-	Created On : 26/07/2021 16:26:33
+	Created On : 27/07/2021 17:57:45
 */
 
 // #pragma GCC optimize("O3")
@@ -186,16 +186,23 @@ struct UnionFind {
 };
 
 void solve(){
-	string s, t; cin >> s >> t;
-	ll n = sz(s), m = sz(t);
-	ll i = n - 1;
-	bool ok = true;
-	for(ll j = m - 1; j >= 0; j--){
-		while(i >= 0 && s[i] != t[j]) i -= 2;
-		if(i < 0){ok = false; break;}
-		i -= 1;
+	ll n, k; cin >> n >> k;
+	vector < bool > used(2 * n, false);
+	vector < ll > a(k), b(k);
+	for(ll i = 0; i < k; i++){
+		cin >> a[i] >> b[i]; --a[i]; --b[i];
+		used[a[i]] = used[b[i]] = true;
 	}
-	if(ok) print("YES"); else print("NO");
+	vector < ll > r;
+	for(ll i = 0; i < 2 * n; i++) if(!used[i]) r.pb(i);
+	ll cnt = sz(r);
+	for(ll i = 0; i < cnt/2; i++){
+		a.pb(r[i]); b.pb(r[i + cnt/2]);
+	}
+	for(ll i = 0; i < n; i++) if(a[i] > b[i]) swap(a[i], b[i]);
+	ll ans = 0;
+	for(ll i = 0; i < n; i++) for(ll j = 0; j < n; j++) if(a[i] < a[j] && a[j] < b[i] && b[i] < b[j]) ans++;
+	print(ans);
 }
 
 int main()
