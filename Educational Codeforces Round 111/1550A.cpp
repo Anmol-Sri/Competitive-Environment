@@ -182,24 +182,8 @@ struct UnionFind {
 
 void solve(){
 	ll s; cin >> s;
-    ll ans = 1;
-    ll cur = 1, num = 1;
-    while(cur < s){
-        if(cur + num + 2 <= s){
-            num += 2;
-            cur += num;
-        }
-        else if(cur + num + 1 <= s){
-            num++;
-            cur += num;
-        }
-        else{
-            ans++;
-            break;
-        }
-        ans++;
-    }
-    print(ans);
+    
+    print(ceil(sqrt(s)));
 }
 
 int main()
